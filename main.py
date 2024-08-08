@@ -10,7 +10,6 @@ from utils.ai import generate_response
 from utils.split_response import split_response
 from colorama import init, Fore, Style
 from datetime import datetime
-from http.server import BaseHTTPRequestHandler, HTTPServer
 
 load_dotenv(dotenv_path="config/.env")
 init()
@@ -207,21 +206,6 @@ async def on_message(message):
             message.content = message.content.replace(
                 f"<@{mention.id}>", f"@{mention.display_name}"
             )
-
-        class MyRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(b"Hello, World!")
-
-def run_server():
-    server_address = ("localhost", 8080)
-    httpd = HTTPServer(server_address, MyRequestHandler)
-    print("Port 8080 is open")
-    httpd.serve_forever()
-
-run_server()
 
         #################### Put a # before each line ######################
         # for t in TRIGGER:
